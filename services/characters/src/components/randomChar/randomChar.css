@@ -1,0 +1,130 @@
+.random-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25);
+}
+
+.random-char, .random-static {
+    padding: 35px 35px 35px 40px;
+    flex-basis: 50%;
+}
+
+.random-char {
+    height: 250px;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    gap: 30px;
+}
+
+.random-img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+}
+
+.char-info {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.random-char-header {
+    text-transform: uppercase;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.32;
+    margin-bottom: 10px;
+}
+
+.random-descr {
+    font-size: 14px;
+    margin-bottom: 13px;
+}
+
+.random-btns {
+    margin-top: auto;
+    display: flex;
+    gap: 30px;
+}
+
+.btn {
+    position: relative;
+    padding: 11px 0;
+    width: 101px;
+    font-size: 14px;
+    height: 38px;
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--white-color);
+}
+
+.btn-active {
+    background-color: var(--red-color);
+}
+
+.btn-default {
+    background-color: var(--bg-btn-black);
+}
+
+.random-btns > a::before,
+.random-static > button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-bottom: 10px solid transparent;
+}
+
+.random-btns > a::after,
+.random-static > button::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border-top: 10px solid transparent;
+}
+
+.random-btns > a::before {
+    border-left: 10px solid var(--white-color);
+}
+
+.random-btns > a::after {
+    border-right: 10px solid var(--white-color);
+}
+
+.random-static {
+    position: relative;
+    background-color: var(--bg-black);
+}
+
+.random-static-par {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.33;
+    color: var(--white-color);
+}
+
+.random-static > p:nth-child(1) {
+    margin-bottom: 33px;
+}
+
+.random-static > button {
+    margin-top: 13px;
+}
+
+.random-static > button::before {
+    border-left: 10px solid var(--bg-black);
+}
+
+.random-static > button::after {
+    border-right: 10px solid var(--bg-black);
+}
+
+.random-static-mjolnir {
+    position: absolute;
+    bottom: 14px;
+    right: -35.5px;
+}

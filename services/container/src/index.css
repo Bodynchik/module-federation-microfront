@@ -1,0 +1,112 @@
+@font-face {
+    font-family: 'Roboto Condensed';
+    src: url('../assets/fonts/RobotoCondensed-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto Condensed';
+    src: url('../assets/fonts/RobotoCondensed-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --red-color: #9F0013;
+    --black-color: #000000;
+    --white-color: #FFFFFF;
+    --bg-black: #232222;
+    --bg-btn-black: #5C5C5C;
+    --bg-character-info: #C4C4C4;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto Condensed', serif;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--black-color);
+    margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+}
+
+ul {
+    margin: 0;
+    padding-left: 0;
+    list-style-type: none;
+}
+
+a {
+    color: var(--black-color);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+img {
+    display: block;
+}
+
+input,
+textarea,
+select,
+button {
+    font: inherit;
+}
+
+button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    transform: translateY(-5px);
+}
+
+button:disabled {
+    transform: none; 
+    cursor: not-allowed;
+}
+
+.app {
+    width: 1100px;
+    margin: 0 auto;
+    position: relative;
+}
+
+main {
+    margin-bottom: 50px;
+}
+
+.img-decor {
+    position: absolute;
+    bottom: -45px;
+    right: -174px;
+    z-index: -1;
+}
+
+.pulse {
+    animation: pulse 1.5s ease-in-out .5s infinite
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1
+    }
+    50% {
+        opacity: .4
+    }
+    100% {
+        opacity: 1
+    }
+}

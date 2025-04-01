@@ -1,0 +1,28 @@
+.header {
+    max-width: 1100px;
+    margin: 50px auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header-h1 {
+    font-size: 28px;
+    line-height: 1.32;
+    align-self: flex-start;
+}
+
+.header-nav {
+    align-self: flex-end;
+}
+
+.header-list {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.17;
+    display: flex;
+    gap: 8px;
+}
+
+.active {
+    color: var(--red-color);
+}

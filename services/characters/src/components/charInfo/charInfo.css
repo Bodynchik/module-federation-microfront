@@ -1,0 +1,85 @@
+.char-aside {
+    padding: 25px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .25);
+    background-color: var(--white-color);
+}
+
+.char-basics {
+    display: flex;
+    gap: 25px;
+}
+
+.char-visit {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.char-info-name {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.32;
+    text-transform: uppercase;
+}
+
+.btns-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.char-aside-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.btns-container > a::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-bottom: 10px solid transparent;
+}
+
+.btns-container > a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border-top: 10px solid transparent;
+}
+
+.btns-container > a::before {
+    border-left: 10px solid var(--white-color);
+}
+
+.btns-container > a::after {
+    border-right: 10px solid var(--white-color);
+}
+
+.char-descr {
+    margin: 15px 0 20px;
+    font-size: 14px;
+    line-height: 1.29;
+}
+
+.char-comics {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.17;
+    margin-bottom: 13px;
+}
+
+.char-comics-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.char-comics-item {
+    font-size: 14px;
+    line-height: 1.14;
+    padding: 4px 10px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, .25);
+}
