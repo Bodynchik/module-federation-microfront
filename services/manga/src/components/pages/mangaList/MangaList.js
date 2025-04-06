@@ -12,20 +12,19 @@ export function MangaList() {
     const [newMangaLoading, setNewMangaLoading] = useState(false);
     const [page, setPage] = useState(1);
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [comicsEnded, setComicsEnded] = useState(false);
+    // const [comicsEnded, setComicsEnded] = useState(false);
 
     const { spinner, error, resetError, getAllManga } = useAnimeResources();
 
     useEffect(() => {
-        setNewMangaLoading(true);
         fetchManga(page);
     }, [])
 
     const fetchManga = (page, takeCount) => {
+        setNewMangaLoading(false);
         getAllManga(page)
             .then(newManga => {
                 preparedData(newManga, takeCount);
-                setNewMangaLoading(false);
             });
     }
 
@@ -38,22 +37,29 @@ export function MangaList() {
         }
     }
 
-    const onCharListLoaded = () => {
+    const onCharListLoaded = async () => {
         resetError();
-        let remaining = bufferManga.length - currentIndex;
-        let takeCount = Math.min(8, remaining);
+        setNewMangaLoading(true);
+        const takeCount = Math.min(8, bufferManga.length - currentIndex);
         let tmpManga = bufferManga.slice(currentIndex, currentIndex + takeCount);
-        setMangaList(prevManga => [...prevManga, ...tmpManga]);
-        setCurrentIndex(prevIndex => prevIndex + takeCount);
+        let tmpCurrentBuffer = [...bufferManga];
+        let tmpCurrentIndex = currentIndex;
+        tmpCurrentIndex += takeCount;
 
         if (bufferManga.length === 0) {
-            setNewMangaLoading(true);
             fetchManga(page);
-        } else if (currentIndex + takeCount >= bufferManga.length) {
-            setNewMangaLoading(true);
+        } else if (tmpCurrentIndex >= bufferManga.length) {
+            const res = await getAllManga(page + 1);
             setPage(prevPage => prevPage + 1);
-            fetchManga(page + 1, takeCount);
+            tmpCurrentBuffer = [...res];
+            tmpManga = [...tmpManga, ...res.slice(0, 8 - takeCount)];
+            tmpCurrentIndex = 8 - takeCount;
         }
+
+        setMangaList(prevManga => [...prevManga, ...tmpManga]);
+        setBufferManga(tmpCurrentBuffer);
+        setCurrentIndex(prevIndex => prevIndex + takeCount);
+        setNewMangaLoading(false);
     }
 
     const renderItems = manga => {
@@ -76,7 +82,7 @@ export function MangaList() {
 
     const renderList = renderItems(mangaList);
     const viewError = error ? <ErrorMessage /> : null;
-    const viewSpinner = spinner ? <Spinner /> : null;
+    const viewSpinner = spinner && !newMangaLoading ? <Spinner /> : null;
 
     return (
         <div className="comics__list">
@@ -85,7 +91,7 @@ export function MangaList() {
             {viewSpinner}
             <button
                 disabled={newMangaLoading}
-                style={{ 'display': comicsEnded ? 'none' : 'block' }}
+                // style={{ 'display': comicsEnded ? 'none' : 'block' }}
                 className="char-more"
                 onClick={onCharListLoaded}
             >

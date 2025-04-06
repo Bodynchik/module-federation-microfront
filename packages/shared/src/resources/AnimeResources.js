@@ -37,8 +37,11 @@ export function useAnimeResources() {
     }
 
     const transformCharDescription = descr => {
-        if (descr.includes('\n\n')) {
-            return descr.slice(descr.indexOf('\n\n'), -1);
+        const index = descr.indexOf('\n\n');
+        if (descr.includes('\n\n') && descr.length - index > 30) {
+            return descr.slice(descr.indexOf('\n\n') + 2, -1);
+        } else if (descr.includes('\n\n') && descr.length - index < 30) {
+            return descr.slice(0, descr.indexOf('\n\n'));
         }
 
         return descr;
@@ -56,6 +59,7 @@ export function useAnimeResources() {
 
     const transformCharacter = (char) => {
         const description = !char.about ? 'No description' : transformCharDescription(char.about);
+        console.log(description + " " + char.mal_id);
 
         return {
             id: char.mal_id,

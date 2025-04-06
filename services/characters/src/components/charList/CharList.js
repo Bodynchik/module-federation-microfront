@@ -10,13 +10,12 @@ function CharList({ onSelectedChar }) {
     const [newCharsLoading, setNewCharsLoading] = useState(false);
     const [page, setPage] = useState(1);
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [charsListEnd, setCharsListEnd] = useState(false);
+    // const [charsListEnd, setCharsListEnd] = useState(false);
     const listItemRef = useRef([]);
 
     const { spinner, error, resetError, getAllCharacters } = useAnimeResources();
 
     useEffect(() => {
-        setNewCharsLoading(true);
         fetchCharacters(page);
     }, []);
 
@@ -27,10 +26,10 @@ function CharList({ onSelectedChar }) {
     }
 
     const fetchCharacters = (page, takeCount) => {
+        setNewCharsLoading(false);
         getAllCharacters(page)
             .then(newChars => {
                 preparedData(newChars, takeCount);
-                setNewCharsLoading(false);
             });
     }
 
@@ -43,22 +42,29 @@ function CharList({ onSelectedChar }) {
         }
     }
 
-    const onCharListLoaded = () => {
+    const onCharListLoaded = async () => {
         resetError();
-        let remaining = bufferChars.length - currentIndex;
-        let takeCount = Math.min(9, remaining);
+        setNewCharsLoading(true);
+        const takeCount = Math.min(9, bufferChars.length - currentIndex);
         let tmpChars = bufferChars.slice(currentIndex, currentIndex + takeCount);
-        setChars(prevChars => [...prevChars, ...tmpChars]);
-        setCurrentIndex(prevIndex => prevIndex + takeCount);
+        let tmpCurrentBuffer = [...bufferChars];
+        let tmpCurrentIndex = currentIndex;
+        tmpCurrentIndex += takeCount;
 
         if (bufferChars.length === 0) {
-            setNewCharsLoading(true);
             fetchCharacters(page);
-        } else if (currentIndex + takeCount >= bufferChars.length) {
-            setNewCharsLoading(true);
+        } else if (tmpCurrentIndex >= bufferChars.length) {
+            const res = await getAllCharacters(page + 1);
             setPage(prevPage => prevPage + 1);
-            fetchCharacters(page + 1, takeCount);
+            tmpCurrentBuffer = [...res];
+            tmpChars = [...tmpChars, ...res.slice(0, 9 - takeCount)];
+            tmpCurrentIndex = 9 - takeCount;
         }
+
+        setChars(prevChars => [...prevChars, ...tmpChars]);
+        setBufferChars(tmpCurrentBuffer);
+        setCurrentIndex(tmpCurrentIndex);
+        setNewCharsLoading(false);
     }
 
     const renderItems = (chars, onSelectedChar) => {
@@ -84,7 +90,7 @@ function CharList({ onSelectedChar }) {
     }
 
     const renderList = renderItems(chars, onSelectedChar);
-    const viewSpinner = spinner ? <Spinner /> : null;
+    const viewSpinner = spinner && !newCharsLoading ? <Spinner /> : null;
     const viewError = error ? <ErrorMessage /> : null;
 
     return (
@@ -96,7 +102,7 @@ function CharList({ onSelectedChar }) {
                 className="char-more"
                 onClick={onCharListLoaded}
                 disabled={newCharsLoading}
-                style={charsListEnd ? { display: 'none' } : { display: 'block' }}
+                // style={charsListEnd ? { display: 'none' } : { display: 'block' }}
             >
                 load more
             </button>

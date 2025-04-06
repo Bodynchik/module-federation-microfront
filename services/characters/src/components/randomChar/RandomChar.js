@@ -57,8 +57,7 @@ function Block({ char }) {
                 <h2 className="random-char-header">{name}</h2>
                 <p className="random-descr">{description}</p>
                 <div className="random-btns">
-                    <a href={homepage} className="btn btn-active">homepage</a>
-                    <a href={wiki} className="btn btn-default">wiki</a>
+                    <a href={wiki} className="btn btn-active">wiki</a>
                 </div>
             </div>
         </>

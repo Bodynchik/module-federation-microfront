@@ -12,7 +12,6 @@ export function MangaInfo() {
     const { spinner, error, resetError, getManga } = useAnimeResources();
 
     useEffect(() => {
-        resetError();
         getManga(id)
             .then(manga => setManga(manga));
     }, [id]);

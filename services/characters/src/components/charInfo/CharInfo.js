@@ -64,8 +64,8 @@ function View({ char }) {
                 <div className="char-visit">
                     <p className="char-info-name">{name}</p>
                     <div className="btns-container">
-                        <a href={homepage} className="btn btn-active">homepage</a>
-                        <a href={wiki} className="btn btn-default">wiki</a>
+                        {/* <a href={homepage} className="btn btn-active">homepage</a> */}
+                        <a href={wiki} className="btn btn-active">wiki</a>
                     </div>
                 </div>
             </div>

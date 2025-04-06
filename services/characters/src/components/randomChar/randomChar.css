@@ -58,15 +58,16 @@
     height: 38px;
     text-align: center;
     text-transform: uppercase;
+    transition: 0.2s;
     color: var(--white-color);
+}
+
+.btn:hover {
+    transform: translateY(-5px);
 }
 
 .btn-active {
     background-color: var(--red-color);
-}
-
-.btn-default {
-    background-color: var(--bg-btn-black);
 }
 
 .random-btns > a::before,
