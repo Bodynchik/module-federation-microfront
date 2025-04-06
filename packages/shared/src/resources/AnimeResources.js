@@ -59,7 +59,6 @@ export function useAnimeResources() {
 
     const transformCharacter = (char) => {
         const description = !char.about ? 'No description' : transformCharDescription(char.about);
-        console.log(description + " " + char.mal_id);
 
         return {
             id: char.mal_id,
